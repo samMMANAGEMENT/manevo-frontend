@@ -1,5 +1,5 @@
 import React from 'react'
-import ProtectedRoute from '../components/ProtectedRoute'
+import ProtectedRoute from '../../components/ProtectedRoute'
 
 export default function DashboardComponent() {
     return (

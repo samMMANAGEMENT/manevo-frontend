@@ -83,17 +83,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { data } = await $axios.get("/auth/me")
       setUser(data)
       localStorage.setItem("usuario", JSON.stringify(data))
+
+      if (data.response == 401){
+        logout();
+      }
+
     } catch (error) {
       console.error("Error al obtener usuario:", error)
       logout()
     }
   }
 
-  // ✅ Cargar usuario al iniciar la app
   useEffect(() => {
     const storedToken = localStorage.getItem("token")
     if (storedToken) {
-      // Usar la función setToken para que también fije el header en $axios
       setToken(storedToken)
       refreshUser().finally(() => setLoading(false))
     } else {

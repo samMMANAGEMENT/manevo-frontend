@@ -37,3 +37,31 @@ $axios.interceptors.response.use(
 )
 
 export default $axios
+
+
+export const attachLoaderInterceptors = (loader: {
+  startLoading: () => void
+  stopLoading: (error?: boolean) => void
+}) => {
+  $axios.interceptors.request.use(
+    (config) => {
+      loader.startLoading()
+      return config
+    },
+    (error) => {
+      loader.stopLoading(true)
+      return Promise.reject(error)
+    }
+  )
+
+  $axios.interceptors.response.use(
+    (response) => {
+      loader.stopLoading(false)
+      return response
+    },
+    (error) => {
+      loader.stopLoading(true)
+      return Promise.reject(error)
+    }
+  )
+}

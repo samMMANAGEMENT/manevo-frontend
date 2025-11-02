@@ -18,12 +18,11 @@ export default function LoginAuthComponent() {
       setError(null);
 
       const response = await authService.Login({ email, password });
-      console.log("Respuesta:", response);
 
       if (response.token) localStorage.setItem("token", response.token);
       if (response.usuario)
         localStorage.setItem("usuario", JSON.stringify(response.usuario));
-      router.push("/dashboard");
+      router.push("/main/dashboard");
     } catch (err: any) {
       console.error(err);
       setError(
