@@ -48,12 +48,6 @@ export default function AdminPermisos() {
     }
   }
 
-
-  const payload = {
-    nombre,
-    descripcion
-  }
-
   const actions = [
     {
       label: "Editar",
@@ -83,15 +77,17 @@ export default function AdminPermisos() {
         </PageHeader>
       </div>
 
-      <DataTable
-        columns={[
-          { key: "name", label: "Nombre" },
-          { key: "description", label: "Descripción" },
-        ]}
-        data={permisos}
-        actions={actions}
-        loading={loading}
-      />
+      <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <DataTable
+          columns={[
+            { key: "name", label: "Nombre" },
+            { key: "description", label: "Descripción" },
+          ]}
+          data={permisos}
+          actions={actions}
+          loading={loading}
+        />
+      </div>
 
       <Modal
         isOpen={isModalOpen}

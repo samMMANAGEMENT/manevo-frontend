@@ -12,6 +12,8 @@ import {
   Scissors,
   ChevronDown,
   ChevronRight,
+  Menu as MenuIcon,
+  X as XIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
@@ -24,9 +26,10 @@ export default function SidebarMenu() {
   const { logout } = useAuth();
   const { can } = useCan();
   const [openItem, setOpenItem] = useState<string | null>(null);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const menu = [
-    { name: "Dashboard", href: "/main/dashboard", icon: LayoutDashboard, perm: "menu.dashboard" },
+    { name: "Dashboard", href: "/main/dashboard", icon: LayoutDashboard, perm: "dashboard.menu" },
     { name: "Servicios", href: "/main/servicios/registrar", icon: Scissors, perm: "servicios.registrar" },
     { name: "Clientes", href: "/main/dashboard/customers", icon: User, perm: "usuarios.vista" },
     {
@@ -53,13 +56,35 @@ export default function SidebarMenu() {
   };
 
   return (
-    <aside className="hidden lg:flex lg:w-60 p-4 lg:p-6 flex-col justify-between min-h-screen bg-[#F9F9F9]">
-      <div>
-        <div className="flex items-center gap-3 mb-6 lg:mb-10 px-2">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center">
-            <img src="/suitpress-logo.svg" alt="Logo" className="w-12 lg:w-16 h-auto" />
+    <>
+      {/* Botón para menú móvil */}
+      {!isMobileMenuOpen && (
+        <button
+          className="lg:hidden fixed top-4 left-4 z-20 p-2 bg-gray-100 rounded-md"
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="Abrir menú"
+        ><MenuIcon className="w-6 h-6" /></button>
+      )}
+
+      {/* Overlay para el fondo cuando el menú móvil está abierto */}
+      {isMobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/30 z-30"
+          onClick={() => setMobileMenuOpen(false)}
+        ></div>
+      )}
+
+      {/* Contenido del Sidebar */}
+      <aside className={`fixed lg:relative inset-y-0 left-0 z-40 w-60 p-4 lg:p-6 flex-col justify-between min-h-screen bg-[#F9F9F9] transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:flex`}>
+        <div className="flex-1">
+          <div className="flex items-center justify-between gap-3 mb-6 lg:mb-10 px-2">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center">
+                <img src="/suitpress-logo.svg" alt="Logo" className="w-12 lg:w-16 h-auto" />
+              </div>
+            </div>
+            <button className="lg:hidden" onClick={() => setMobileMenuOpen(false)} aria-label="Cerrar menú"><XIcon className="w-6 h-6" /></button>
           </div>
-        </div>
 
         <nav className="space-y-1">
           {menu
@@ -144,7 +169,8 @@ export default function SidebarMenu() {
         <button className="p-2.5 lg:p-3 hover:bg-white rounded-xl transition-all duration-200 text-[#727272] hover:text-[#0D0D0D]">
           <Sun className="w-5 h-5" />
         </button>
-      </div>
-    </aside>
+        </div>
+      </aside>
+    </>
   );
 }
