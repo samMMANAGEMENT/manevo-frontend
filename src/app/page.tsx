@@ -44,7 +44,7 @@ export default function LandingPage() {
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#2A2A2A] mb-6 leading-tight">
               Gestiona tu negocio con <br className="hidden md:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2A2A2A] to-gray-500">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2A2A2A] to-gray-500">
                 inteligencia y control.
               </span>
             </h1>
@@ -62,7 +62,7 @@ export default function LandingPage() {
 
           {/* Hero Image / Dashboard Preview */}
           <div className="relative mx-auto max-w-5xl mt-12 rounded-2xl shadow-2xl border border-gray-200 bg-white p-2 md:p-4 animate-fade-in-up delay-200">
-            <div className="rounded-xl overflow-hidden bg-gray-50 aspect-[16/9] relative group">
+            <div className="rounded-xl overflow-hidden bg-gray-50 aspect-video relative group">
               {/* Abstract Dashboard UI Representation */}
               <div className="absolute inset-0 flex flex-col">
                 {/* Header */}
@@ -114,7 +114,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-white/20 to-transparent pointer-events-none"></div>
             </div>
             {/* Blurs */}
             <div className="absolute -top-12 -right-12 w-64 h-64 bg-purple-200 rounded-full blur-3xl opacity-20 -z-10 animate-pulse"></div>
